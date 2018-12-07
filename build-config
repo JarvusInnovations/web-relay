@@ -28,7 +28,7 @@ async function run() {
         }
 
         console.log('server {');
-        console.log('    listen 80;');
+        console.log('    listen 10.90.8.238:80;');
         console.log(`    server_name ${httpHostnames.join(' ')};`);
         console.log('    location / {');
         console.log(`        proxy_pass http://${host}:80;`);

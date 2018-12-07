@@ -1,0 +1,9 @@
+{
+  "name": "emergence-multihost-nginx",
+  "version": "1.0.0",
+  "dependencies": {
+    "mz": "^2.7.0"
+  },
+  "author": "Chris Alfano <chris@jarv.us>",
+  "license": "MIT"
+}
