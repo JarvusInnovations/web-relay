@@ -1,5 +1,5 @@
 {
-  "name": "emergence-multihost-nginx",
+  "name": "emergence-ingress",
   "version": "1.0.0",
   "dependencies": {
     "mz": "^2.7.0"
