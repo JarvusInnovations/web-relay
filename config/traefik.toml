@@ -47,21 +47,21 @@ logLevel = "DEBUG"
 [file]
 [frontends]
   [frontends.http]
-  backend = "emergence"
+  backend = "remote"
   passHostHeader = true
   [frontends.http.routes.catchall]
     rule = "HostRegexp:{catchall:.*}"
 
   {{# if cfg.secure_hosts}}
   [frontends.https]
-  backend = "emergence"
+  backend = "remote"
   passHostHeader = true
   [frontends.https.routes.hosts]
     rule = "Host:{{ cfg.secure_hosts }}"
   {{/if}}
 
 [backends]
-  [backends.emergence]
-    [backends.emergence.servers.remote]
+  [backends.remote]
+    [backends.remote.servers.remote]
     url = "{{ cfg.remote.url }}"
 {{/if }}
