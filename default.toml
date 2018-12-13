@@ -1,5 +1,5 @@
 debug = false
-host = ""
+secure_hosts = ""
 
 [webmaster]
 email = false

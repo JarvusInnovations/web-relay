@@ -1,4 +1,5 @@
 keepTrailingSlash = true
+defaultEntryPoints = ["http", "https"]
 
 {{#if cfg.debug}}
 logLevel = "DEBUG"
@@ -45,15 +46,18 @@ logLevel = "DEBUG"
 {{# if cfg.remote.url }}
 [file]
 [frontends]
-  [frontends.relay]
+  [frontends.http]
   backend = "emergence"
   passHostHeader = true
-  entryPoints = ["http"]
-  [frontends.relay.routes.catchall]
+  [frontends.http.routes.catchall]
     rule = "HostRegexp:{catchall:.*}"
-  {{# if cfg.host}}
-  [frontends.relay.routes.host]
-    rule = "HostRegexp:{{ cfg.host }}"
+
+  {{# if cfg.secure_hosts}}
+  [frontends.https]
+  backend = "emergence"
+  passHostHeader = true
+  [frontends.https.routes.hosts]
+    rule = "Host:{{ cfg.secure_hosts }}"
   {{/if}}
 
 [backends]
