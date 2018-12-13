@@ -1,0 +1,12 @@
+debug = false
+host = ""
+
+[webmaster]
+email = false
+
+[api]
+enabled = false
+port = 8080
+
+[remote]
+url = false

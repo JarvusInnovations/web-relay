@@ -1,0 +1,63 @@
+keepTrailingSlash = true
+
+{{#if cfg.debug}}
+logLevel = "DEBUG"
+{{/if}}
+
+[traefikLog]
+  filePath = "{{ pkg.svc_var_path }}/traefik.log"
+
+[accessLog]
+  filePath = "{{ pkg.svc_var_path }}/access.log"
+
+{{#if cfg.api.enabled}}
+[api]
+  entryPoint = "traefik"
+  dashboard = true
+{{/if}}
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+  compress = true
+  [entryPoints.https]
+  address = ":443"
+  compress = true
+    [entryPoints.https.tls]
+
+  {{#if cfg.api.enabled}}
+  [entryPoints.traefik]
+  address = ":{{ cfg.api.port }}"
+  [entryPoints.traefik.whiteList]
+      sourceRange = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+  {{/if}}
+
+{{# if cfg.webmaster.email}}
+[acme]
+  email = "{{ cfg.webmaster.email }}"
+  entryPoint = "https"
+  storage = "{{ pkg.svc_var_path }}/acme.json"
+  onHostRule = true
+  [acme.httpChallenge]
+    entryPoint = "http"
+{{/if}}
+
+{{# if cfg.remote.url }}
+[file]
+[frontends]
+  [frontends.relay]
+  backend = "emergence"
+  passHostHeader = true
+  entryPoints = ["http"]
+  [frontends.relay.routes.catchall]
+    rule = "HostRegexp:{catchall:.*}"
+  {{# if cfg.host}}
+  [frontends.relay.routes.host]
+    rule = "HostRegexp:{{ cfg.host }}"
+  {{/if}}
+
+[backends]
+  [backends.emergence]
+    [backends.emergence.servers.remote]
+    url = "{{ cfg.remote.url }}"
+{{/if }}
