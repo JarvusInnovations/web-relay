@@ -1,7 +1,8 @@
-pkg_name=relay
-pkg_origin=emergence
+pkg_name=web-relay
+pkg_origin=jarvus
 pkg_maintainer="Chris Alfano <chris@jarv.us>"
 pkg_license=('MIT')
+pkg_description="A service to be left behind on a deprecated IP/machine to temporarily forward web traffic"
 pkg_version=1.0.0
 pkg_svc_user=root
 pkg_svc_group=$pkg_svc_user
